@@ -53,7 +53,7 @@
                             <td>
                                 <div class="flex flex-row justify-center gap-4">
 
-                                    <a href="{{ route('praktikum.show', $data['id_praktikum']) }}">
+                                    <a href="{{ route('praktikum.show', ['praktikum' => $data['id_praktikum'], 'section' => 'post']) }}">
                                         <x-edit-button class="ms-4 bg-sky-400 hover:bg-sky-300">
                                             {{ __('Detail') }}
                                         </x-edit-button>

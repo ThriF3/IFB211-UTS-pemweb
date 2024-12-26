@@ -92,6 +92,11 @@ Route::get(
 )->middleware(['auth', 'verified'])->name('praktikum.show');
 
 Route::get(
+    '/praktikum/detail/{praktikum}/{section}',
+    [PraktikumController::class, 'show']
+)->middleware(['auth', 'verified'])->name('praktikum.show');
+
+Route::get(
     '/praktikum/edit/{praktikum}',
     [PraktikumController::class, 'edit']
 )->middleware(['auth', 'verified'])->name('praktikum.edit');

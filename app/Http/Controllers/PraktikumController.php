@@ -53,7 +53,7 @@ class PraktikumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, string $section = null)
     {
         $praktikum = Praktikum::with('has_matkul', 'has_jadwal')->find($id);
         $praktikum_peserta = PesertaPraktikum::with('has_mahasiswa')
@@ -67,7 +67,20 @@ class PraktikumController extends Controller
             return redirect()->route('praktikum.index')->with('error', 'Praktikum not found');
         }
 
-        return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'));
+        switch ($section) {
+            case 'post':
+            return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'))
+                ->with('view', view('praktikum.detail.post', compact('praktikum', 'praktikum_peserta', 'nilai'))->render());
+            case 'peserta':
+            return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'))
+                ->with('view', view('praktikum.detail.peserta', compact('praktikum', 'praktikum_peserta'))->render());
+            case 'nilai':
+            return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'))
+                ->with('view', view('praktikum.detail.nilai', compact('praktikum', 'nilai'))->render());
+            default:
+            return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'))
+                ->with('view', view('praktikum.detail.post', compact('praktikum', 'praktikum_peserta', 'nilai'))->render());
+        }
     }
 
     /**
