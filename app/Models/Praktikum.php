@@ -40,4 +40,9 @@ class Praktikum extends Model
     {
         return $this->hasMany(PesertaPraktikum::class,'id_praktikum', 'id_praktikum');
     }
+
+    public function has_posting()
+    {
+        return $this->hasMany(Postingan::class,'id_praktikum', 'id_praktikum');
+    }
 }

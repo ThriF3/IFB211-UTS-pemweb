@@ -10,7 +10,7 @@
                         {{ __('Data Praktikum') }}
                     </a>
                 </h2>
-                <h4 class="text-slate-400">> Detail Data</h4>
+                <h4 class="text-slate-400">> Detail</h4>
 
             </div>
 
@@ -35,9 +35,7 @@
 
     <div class="py-12">
 
-        <!-- Ruang Table -->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
             <div class="bg-gradient-to-r to-sky-400 from-blue-500 overflow-hidden shadow-sm p-4 sm:rounded-lg text-white hover:translate-x-2 hover:shadow-2xl transition-all duration-500">
                 <h2 class="text-2xl font-bold py-4 px-2">Praktikum <span class="text-sm p-2 bg-sky-400 text-white rounded-lg">{{ $praktikum['id_praktikum'] }}</span></h2>
                 <div class="grid grid-cols-4">
@@ -54,7 +52,13 @@
 
                     <div class="col-span-1 flex flex-col gap-1 border-r-2 border-slate-100 px-3">
                         <h4>Jadwal</h4>
-                        <h4>{{ $praktikum->has_jadwal['hari'] }}, {{ $praktikum->has_jadwal['waktu'] }}</h4>
+                        <h4>
+                            @if (isset($praktikum->has_jadwal['hari']))
+                            {{ $praktikum->has_jadwal['hari'] }}, {{ $praktikum->has_jadwal['waktu'] }}
+                            @else
+                            Belum ada jadwal
+                            @endif
+                        </h4>
                     </div>
 
                     <div class="col-span-1 flex flex-col gap-1 px-3">
@@ -69,17 +73,17 @@
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
             <div class="flex flex-row gap-4 justify-between w-svh mx-4">
-                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200  ">
                     <li class="me-2">
                         <a
                             href="{{ url('praktikum/detail/' . $praktikum['id_praktikum'] . '/post') }}"
                             aria-current="page"
                             @if (request()->Is('praktikum/detail/' . $praktikum['id_praktikum'] . '/post'))
-                            class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600 dark:bg-gray-800 dark:text-blue-500"
+                            class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600  "
                             @elseif (request()->Is('praktikum/detail/' . $praktikum['id_praktikum']))
-                            class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600 dark:bg-gray-800 dark:text-blue-500"
+                            class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600  "
                             @else
-                            class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                            class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50  "
                             @endif
                             >Post</a>
                     </li>
@@ -87,9 +91,9 @@
                         <a
                             href="{{ url('praktikum/detail/' . $praktikum['id_praktikum'] . '/peserta') }}"
                             @if (request()->Is('praktikum/detail/' . $praktikum['id_praktikum'] . '/peserta'))
-                            class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600 dark:bg-gray-800 dark:text-blue-500"
+                            class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600  "
                             @else
-                            class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                            class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50  "
                             @endif
                             >Mahasiswa</a>
                     </li>
@@ -97,9 +101,9 @@
                         <a
                             href="{{ url('praktikum/detail/' . $praktikum['id_praktikum'] . '/nilai') }}"
                             @if (request()->Is('praktikum/detail/' . $praktikum['id_praktikum'] . '/nilai'))
-                            class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600 dark:bg-gray-800 dark:text-blue-500"
+                            class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600  "
                             @else
-                            class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                            class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50  "
                             @endif
                             >Nilai</a>
                     </li>
