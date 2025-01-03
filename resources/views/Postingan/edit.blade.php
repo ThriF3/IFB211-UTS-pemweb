@@ -8,7 +8,7 @@
         </ul>
     </div>
     @endif
-    <form method="POST" action="{{ route('postingan.update', $postingan['id_post']) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('postingan.update', [$postingan['id_post']]) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <x-slot name="header">
@@ -20,7 +20,7 @@
                             {{ __('Data Posting') }}
                         </a>
                     </h2>
-                    <h4 class="text-slate-400">> Tambah Data</h4>
+                    <h4 class="text-slate-400">> Edit Data</h4>
                 </div>
 
             </div>
@@ -111,6 +111,107 @@
                         </ul>
                     </div>
                     @endif
+                </div>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 mt-4">
+
+                    {{-- Header --}}
+                    <div class="flex w-full justify-between items-center">
+                        <div class="flex items-center ml-4">
+                            <i class="fa-solid fa-file-pen text-sky-400"></i>
+
+                            <h2 class="text-2xl font-bold py-2 px-2">Nilai</span></h2>
+                        </div>
+                        <hr class="border border-blue-100 w-full mx-2">
+                    </div>
+
+                    <table class="w-full overflow-hidden rounded-lg table-fixed">
+                        <thead class="bg-slate-100">
+                            <tr class="text-slate-600">
+                                <th class="py-4">NRP</th>
+                                <th class="py-4">Nama Mahasiswa</th>
+                                <th class="py-4">Predikat</th>
+                                <th class="py-4">Nilai</th>
+                                <!-- Add other columns as needed -->
+                                <th class="py-4">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            @foreach($postingan->has_nilai as $data)
+                            <tr class="border-b-2 border-slate-100 text-slate-800">
+                                <td>{{ $data['NRP'] }}</td>
+                                <td>
+                                    @foreach ($praktikum_peserta as $peserta)
+                                    @if ($peserta['NRP'] == $data['NRP'])
+                                    {{ $peserta->has_mahasiswa['nama'] }}
+                                    @endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @if (isset($data['nilai']))
+                                    {{ $data['predikat'] }}
+                                    @else
+                                    -
+                                    @endif
+                                </td>
+                                <td>
+                                    @if (isset($data['nilai']))
+                                    {{ $data['nilai'] }}
+                                    @else
+                                    -
+                                    @endif
+                                </td>
+
+                                <!-- Add other columns as needed -->
+                                <td>
+                                    <div class="flex flex-row justify-end">
+                                        <a href="{{ route('praktikum.nilai.download', $data->id_nilai) }}"
+                                            class="inline-flex gap-2 items-center px-4 py-2 bg-white border-blue-600 border rounded-md rounded-r-none font-semibold text-xs text-blue-700 hover:text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-white active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">
+                                            <i class="fa-solid fa-download"></i>
+                                        </a>
+                                        <a href="{{ route('praktikum.nilai.edit', [$data->id_nilai]) }}">
+                                            <x-secondary-button class="border-x-0 rounded-none h-full">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </x-secondary-button>
+                                        </a>
+
+                                        <x-danger-button
+                                            x-data=""
+                                            x-on:click.prevent="$dispatch('open-modal', 'confirm-data-deletion-{{ $data['id_nilai'] }}')"
+                                            class="border-l-0 rounded-l-none">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </x-danger-button>
+                                        <x-modal name="confirm-data-deletion-{{ $data['id_nilai'] }}" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                                            <form action="{{ route('praktikum.nilai.destroy', $data['id_nilai']) }}" method="POST" class="p-6">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <h2 class="text-lg font-medium text-gray-900">
+                                                    {{ __('Are you sure you want to delete this data?') }}
+                                                </h2>
+
+                                                <p class="mt-1 text-sm text-gray-600">
+                                                    {{ __('Once your data is deleted, it will be permanently deleted.') }}
+                                                </p>
+
+                                                <div class="mt-6 flex justify-end">
+                                                    <x-secondary-button x-on:click="$dispatch('close')">
+                                                        {{ __('Cancel') }}
+                                                    </x-secondary-button>
+
+                                                    <x-danger-button class="ms-3">
+                                                        {{ __('Delete Nilai') }}
+                                                    </x-danger-button>
+                                                </div>
+                                            </form>
+                                        </x-modal>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>

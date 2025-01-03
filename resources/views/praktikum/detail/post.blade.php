@@ -156,15 +156,6 @@
                     </div>
                     <p class="text-gray-500">{{ $data['description'] }}</p>
 
-
-                </div>
-
-                {{-- Delete Posting --}}
-                <div class="bg-white border border-gray-300 rounded-md px-4 py-2 h-fit">
-                    <div class="flex gap-2 items-center">
-                        <i class="fa-solid fa-book-open"></i>
-                        <h4 class="font-bold text-md text-gray-500">27/30</h4>
-                    </div>
                 </div>
 
             </div>

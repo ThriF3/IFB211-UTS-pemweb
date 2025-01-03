@@ -108,8 +108,8 @@ class PraktikumDetailController extends Controller
             'nilai' => $request->nilai,
             'file_content' => $filePath,
         ]);
-
-        return redirect()->route('praktikum.show', [$nilai->id_praktikum, 'nilai'])->with('status', 'Data nilai berhasil diperbarui.');
+        // return redirect()->route('praktikum.show', [$nilai->id_praktikum, 'nilai'])->with('status', 'Data nilai berhasil diperbarui.');
+        return redirect()->back()->with('status', 'Data nilai berhasil diperbarui.');
     }
 
     public function destroy_nilai(string $id)

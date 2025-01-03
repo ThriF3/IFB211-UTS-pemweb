@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PesertaPraktikum;
 use Illuminate\Http\Request;
 use App\Models\Postingan;
 use App\Models\Praktikum;
@@ -70,8 +71,10 @@ class PostinganController extends Controller
      */
     public function edit(string $id)
     {
-        $postingan = Postingan::find($id);
-        return view('postingan.edit', compact('postingan'));
+        $postingan = Postingan::with('has_nilai')->find($id);
+        $praktikum_peserta = PesertaPraktikum::with('has_mahasiswa')->get();
+
+        return view('postingan.edit', compact('postingan', 'praktikum_peserta'));
     }
 
     /**
@@ -98,7 +101,7 @@ class PostinganController extends Controller
         if ($request->hasFile('file_content')) {
             $savePath = $request->file('file_content')->store('uploads', 'public');
             if (Storage::disk('public')->exists($savePath)) {
-            Storage::disk('public')->delete($postingan->file_content);
+                Storage::disk('public')->delete($postingan->file_content);
             }
         } else {
             $savePath = $postingan->file_content;

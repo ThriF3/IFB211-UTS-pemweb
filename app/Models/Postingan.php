@@ -34,4 +34,9 @@ class Postingan extends Model
     {
         return $this->hasOne(MataKuliah::class, 'id_praktikum', 'id_praktikum');
     }
+
+    public function has_nilai()
+    {
+        return $this->hasMany(Nilai::class,'id_post', 'id_post');
+    }
 }
