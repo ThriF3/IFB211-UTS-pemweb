@@ -32,7 +32,7 @@
                 <table class="w-full overflow-hidden rounded-lg">
                     <thead class="bg-slate-100">
                         <tr class="text-slate-600">
-                            <th class="py-4">Kode Matkul</th>
+                            <th class="py-4 bg-sky-400 text-white">Kode Matkul</th>
                             <th class="py-4">Nama</th>
                             <th class="py-4">Fakultas</th>
                             <th class="py-4">Semester</th>
@@ -44,7 +44,7 @@
                     <tbody class="text-center">
                         @foreach($mk as $data)
                         <tr class="border-b-2 border-slate-100 text-slate-800">
-                            <td class="py-4">{{ $data['id_matkul'] }}</td>
+                            <td class="py-4 bg-sky-100">{{ $data['id_matkul'] }}</td>
                             <td class="py-4">{{ $data['nama'] }}</td>
                             <td class="py-4">{{ $data['fakultas'] }}</td>
                             <td class="py-4">{{ $data['semester'] }}</td>

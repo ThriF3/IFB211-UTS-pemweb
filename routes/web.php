@@ -134,10 +134,25 @@ Route::post(
     [PraktikumDetailController::class, 'store_nilai']
 )->middleware(['auth', 'verified'])->name('praktikum.nilai.store');
 
+Route::put(
+    '/praktikum/nilai/update/{id}',
+    [PraktikumDetailController::class, 'update_nilai']
+)->middleware(['auth', 'verified'])->name('praktikum.nilai.update');
+
 Route::get(
     '/praktikum/nilai/create/{id}',
     [PraktikumDetailController::class, 'create_nilai']
 )->middleware(['auth', 'verified'])->name('praktikum.nilai.create');
+
+Route::get(
+    '/praktikum/nilai/edit/{id}',
+    [PraktikumDetailController::class, 'edit_nilai']
+)->middleware(['auth', 'verified'])->name('praktikum.nilai.edit');
+
+Route::get(
+    '/praktikum/nilai/download/{id}',
+    [PraktikumDetailController::class, 'download_nilai']
+)->middleware(middleware: ['auth', 'verified'])->name('praktikum.nilai.download');
 
 Route::delete(
     '/praktikum/nilai/{id}',
@@ -228,6 +243,11 @@ Route::get(
     '/postingan/create/{id_praktikum}',
     [PostinganController::class, 'create']
 )->middleware(middleware: ['auth', 'verified'])->name('postingan.create');
+
+Route::get(
+    '/postingan/edit/{id}',
+    [PostinganController::class, 'edit']
+)->middleware(['auth', 'verified'])->name('postingan.edit');
 
 Route::post(
     '/postingan/store',

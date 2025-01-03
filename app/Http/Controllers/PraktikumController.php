@@ -17,7 +17,7 @@ class PraktikumController extends Controller
      */
     public function index()
     {
-        $praktikum = Praktikum::with('has_matkul')->get();
+        $praktikum = Praktikum::with('has_matkul', 'has_jadwal')->get();
         return view('praktikum.index', compact('praktikum'));
     }
 

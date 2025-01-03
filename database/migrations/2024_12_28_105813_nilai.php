@@ -18,10 +18,10 @@ class Nilai extends Migration
 
             $table->char('id_praktikum', 6); // Primary key with char(6) type
             $table->foreign('id_praktikum') // Defines a foreign key
-                  ->references('id_praktikum')
-                  ->on('praktikum')
-                  ->onDelete('restrict')
-                  ->onUpdate('cascade');
+                ->references('id_praktikum')
+                ->on('praktikum')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
 
             $table->char('NRP', 9); // Primary key with char(6) type
             $table->foreign('NRP') // Defines a foreign key
@@ -29,8 +29,17 @@ class Nilai extends Migration
                 ->on('mahasiswa')
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
-            $table->char('predikat', 1); // Example additional column
-            $table->unsignedTinyInteger('nilai')->nullable(); // Accepts values from 0 to 255
+
+            $table->unsignedBigInteger('id_post'); // Primary key with char(6) type
+            $table->foreign('id_post') // Defines a foreign key
+                ->references('id_post')
+                ->on('postingan')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+
+            $table->char('predikat', 1)->nullable();
+            $table->unsignedTinyInteger('nilai')->nullable();
+            $table->string('file_content');
 
             $table->timestamps();
         });

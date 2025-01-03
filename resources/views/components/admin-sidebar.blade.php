@@ -92,74 +92,76 @@
                         <span class="flex-1 ms-3 whitespace-nowrap">Nilai</span>
                     </a>
                 </li>
-                <li>
-                    <a
-                        href="{{ route('mahasiswa') }}"
-                        @if (request()->routeIs('mahasiswa'))
-                        class="flex items-center p-2 text-white rounded-lg  hover:bg-blue-300 group border bg-blue-400"
-                        @else
-                        class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
-                        @endif
-                        >
-                        <svg
+                @if (Auth::user()->role == 'admin')
+                    <li>
+                        <a
+                            href="{{ route('mahasiswa') }}"
                             @if (request()->routeIs('mahasiswa'))
-                            class="flex-shrink-0 w-5 h-5 text-white transition"
+                            class="flex items-center p-2 text-white rounded-lg  hover:bg-blue-300 group border bg-blue-400"
                             @else
-                            class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                            class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
                             @endif
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z" clip-rule="evenodd" />
-                        </svg>
+                            >
+                            <svg
+                                @if (request()->routeIs('mahasiswa'))
+                                class="flex-shrink-0 w-5 h-5 text-white transition"
+                                @else
+                                class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                                @endif
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z" clip-rule="evenodd" />
+                            </svg>
 
-                        <span class="flex-1 ms-3 whitespace-nowrap">Mahasiswa</span>
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="{{ route('mk') }}"
-                        @if (request()->routeIs('mk'))
-                        class="flex items-center p-2 text-white rounded-lg  hover:bg-blue-300 group border bg-blue-400"
-                        @else
-                        class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
-                        @endif
-                        >
-                        <svg
+                            <span class="flex-1 ms-3 whitespace-nowrap">Mahasiswa</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="{{ route('mk') }}"
                             @if (request()->routeIs('mk'))
-                            class="flex-shrink-0 w-5 h-5 text-white transition"
+                            class="flex items-center p-2 text-white rounded-lg  hover:bg-blue-300 group border bg-blue-400"
                             @else
-                            class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                            class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
                             @endif
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z" clip-rule="evenodd" />
-                        </svg>
+                            >
+                            <svg
+                                @if (request()->routeIs('mk'))
+                                class="flex-shrink-0 w-5 h-5 text-white transition"
+                                @else
+                                class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                                @endif
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-2v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2h-8v16h5v2H7a1 1 0 1 1 0-2h1V2H6Z" clip-rule="evenodd" />
+                            </svg>
 
 
 
-                        <span class="flex-1 ms-3 whitespace-nowrap">Mata Kuliah</span>
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="{{ route('ruang') }}"
-                        @if (request()->routeIs('ruang'))
-                        class="flex items-center p-2 text-white rounded-lg  hover:bg-blue-300 group border bg-blue-400"
-                        @else
-                        class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
-                        @endif
-                        >
-                        <svg
+                            <span class="flex-1 ms-3 whitespace-nowrap">Mata Kuliah</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="{{ route('ruang') }}"
                             @if (request()->routeIs('ruang'))
-                            class="flex-shrink-0 w-5 h-5 text-white transition"
+                            class="flex items-center p-2 text-white rounded-lg  hover:bg-blue-300 group border bg-blue-400"
                             @else
-                            class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                            class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
                             @endif
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2v14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2V5a1 1 0 0 1-1-1Zm5 2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1Zm-5 4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1Zm-3 4a2 2 0 0 0-2 2v3h2v-3h2v3h2v-3a2 2 0 0 0-2-2h-2Z" clip-rule="evenodd" />
-                        </svg>
+                            >
+                            <svg
+                                @if (request()->routeIs('ruang'))
+                                class="flex-shrink-0 w-5 h-5 text-white transition"
+                                @else
+                                class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                                @endif
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2v14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2V5a1 1 0 0 1-1-1Zm5 2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1Zm-5 4a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H9Zm5 0a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1Zm-3 4a2 2 0 0 0-2 2v3h2v-3h2v3h2v-3a2 2 0 0 0-2-2h-2Z" clip-rule="evenodd" />
+                            </svg>
 
-                        <span class="flex-1 ms-3 whitespace-nowrap">Ruang</span>
-                    </a>
-                </li>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Ruang</span>
+                        </a>
+                    </li>
+                @endif
             </ul>
 
         </div>

@@ -32,7 +32,7 @@ class PostinganController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'id_praktikum' => 'required|string|max:6',
             'judul' => 'required|string|max:50',
             'description' => 'nullable|string|max:255',
@@ -54,7 +54,7 @@ class PostinganController extends Controller
             'file_content' => $filePath,
         ]);
 
-        return redirect()->back()->with('status', 'Data praktikum berhasil ditambahkan.');
+        return redirect()->route('praktikum.show', [$request->input('id_praktikum'), 'post'])->with('status', 'Data praktikum berhasil ditambahkan.');
     }
 
     /**
@@ -70,7 +70,8 @@ class PostinganController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $postingan = Postingan::find($id);
+        return view('postingan.edit', compact('postingan'));
     }
 
     /**
@@ -78,7 +79,42 @@ class PostinganController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $postingan = Postingan::find($id);
+
+        if (!$postingan) {
+            return redirect()->route('praktikum.index')->with('error', 'Postingan not found');
+        }
+
+        $request->validate([
+            'judul' => 'required|string|max:50',
+            'description' => 'nullable|string|max:255',
+            'tipe' => 'required|in:modul,penugasan',
+            'startDate' => 'required|date',
+            'endDate' => 'nullable|date',
+            'file_content' => 'nullable|file|mimes:pdf|max:5120',
+        ]);
+
+        $savePath = '';
+        if ($request->hasFile('file_content')) {
+            $savePath = $request->file('file_content')->store('uploads', 'public');
+            if (Storage::disk('public')->exists($savePath)) {
+            Storage::disk('public')->delete($postingan->file_content);
+            }
+        } else {
+            $savePath = $postingan->file_content;
+        }
+
+
+        $postingan->update([
+            'judul' => $request->judul,
+            'description' => $request->description,
+            'tipe' => $request->tipe,
+            'startDate' => $request->startDate,
+            'endDate' => $request->endDate,
+            'file_content' => $savePath,
+        ]);
+
+        return redirect()->route('praktikum.show', [$request->input('id_praktikum'), 'post'])->with('status', 'Data praktikum berhasil ditambahkan.');
     }
 
     /**
@@ -102,7 +138,7 @@ class PostinganController extends Controller
             $postingan->delete();
         } catch (QueryException $e) {
             return back()->withErrors(
-                ['error' => 'Gagal menghapus, masih terdapat data peserta. Coba lagi.']
+                ['error' => 'Gagal menghapus, masih terdapat data nilai. Coba lagi.']
             );
         }
 
@@ -115,7 +151,7 @@ class PostinganController extends Controller
     public function download($id)
     {
         $postingan = Postingan::find($id);
-        $url = Storage::path('/public/'.$postingan->file_content);
+        $url = Storage::path('/public/' . $postingan->file_content);
         return response()->download($url);
     }
 }

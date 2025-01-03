@@ -17,10 +17,12 @@ class Nilai extends Model
 
     protected $fillable = [
         'id_nilai', 
+        'id_post',
         'id_praktikum', 
         'NRP', 
         'predikat', 
         'nilai', 
+        'file_content',
     ];
 
     public function has_praktikum()
@@ -31,5 +33,10 @@ class Nilai extends Model
     public function has_mahasiswa()
     {
         return $this->hasOne(Mahasiswa::class, 'NRP', 'NRP');
+    }
+
+    public function has_postingan()
+    {
+        return $this->hasOne(Postingan::class, 'id_post', 'id_post');
     }
 }

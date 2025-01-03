@@ -52,9 +52,11 @@ class NilaiController extends Controller
 
         $validatedData = $request->validate([
             'id_praktikum' => 'required|string|max:6',
+            'id_post' => 'required|integer',
             'NRP' => 'required|string|max:9',
-            'predikat' => 'required|string|max:1',
-            'nilai' => 'required|integer',
+            'predikat' => 'nullable|string|max:1',
+            'nilai' => 'nullable|integer',
+            'file_content' => 'required|file|mimes:pdf|max:5120',
         ]);
 
         Nilai::create($validatedData);

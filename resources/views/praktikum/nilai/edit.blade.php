@@ -1,6 +1,7 @@
 <x-app-layout>
-    <form method="POST" action="{{ route('praktikum.nilai.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('praktikum.nilai.update', $nilai->id_nilai)}}" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <x-slot name="header">
             <div class="flex flex-row items-center justify-between">
 
@@ -25,22 +26,20 @@
 
                         <div class="col-span-2">
                             <x-input-label for="id_praktikum" :value="__('Kode Praktikum')" />
-                            <select name="id_praktikum" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
-                                <option value="{{ $praktikum['id_praktikum'] }}"
-                                @if ($id == $praktikum['id_praktikum'])
-                                    selected
-                                @endif
-                                >{{ $praktikum['id_praktikum'] }}</option>
+                            <select disabled name="id_praktikum" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
+                                <option value="{{ $nilai['id_praktikum'] }}" selected>{{ $nilai['id_praktikum'] }}</option>
                             </select>
                             <x-input-error :messages="$errors->get('id_praktikum')" class="mt-2" />
                         </div>
 
                         <div class="col-span-2">
                             <x-input-label for="id_post" :value="__('Posting')" />
-                            <select name="id_post" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
+                            <select disabled name="id_post" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
                                 @foreach ($praktikum->has_posting as $data)
-                                <option value="{{ $data['id_post'] }}"
-                                >{{$data['judul']}}</option>
+                                @if ($nilai['id_post'] == $data['id_post'])
+                                <option
+                                    value="{{ $data['id_post'] }}">{{$data['judul']}}</option>
+                                @endif
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('id_praktikum')" class="mt-2" />
@@ -48,9 +47,12 @@
 
                         <div class="col-span-2">
                             <x-input-label for="NRP" :value="__('Nama')" />
-                            <select name="NRP" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
+                            <select disabled name="NRP" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
                                 @foreach ($praktikum->has_peserta as $data)
-                                <option value="{{ $data['NRP'] }}">{{ $data['NRP'] }}</option>
+                                @if ($nilai['NRP']==$data['NRP'])
+                                <option
+                                    value="{{ $data['NRP'] }}" selected>{{ $data['NRP'] }}</option>
+                                @endif
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('NRP')" class="mt-2" />
@@ -72,7 +74,7 @@
 
                         <div class="col-span-4 flex flex-row justify-end">
 
-                            <a href="{{ route('praktikum.show', [$id, 'nilai']) }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                            <a href="{{ route('praktikum.show', [$nilai->id_praktikum, 'nilai']) }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                                 Kembali
                             </a>
 

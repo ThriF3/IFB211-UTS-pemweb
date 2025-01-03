@@ -1,20 +1,25 @@
 <div class="bg-white overflow-hidden shadow-sm p-4 sm:rounded-lg text-slate-700" id="section">
 
-    <div class="flex flex-row justify-between items-center px-4">
+    {{-- Header --}}
+    <div class="flex w-full justify-between items-center">
+        <div class="flex items-center ml-4">
+            <i class="fa-solid fa-user-group text-sky-400"></i>
 
-        <h2 class="text-2xl font-bold py-4 px-2">Data Mahasiswa</span></h2>
+            <h2 class="text-2xl font-bold py-2 px-2">Mahasiswa</span></h2>
+        </div>
+        <hr class="border border-blue-100 w-full mx-2">
+        <a href="{{ route('praktikum.peserta.create') }}"
+            class="border hover:border-blue-400 p-1 rounded-lg transition-all duration-300">
 
-        <a href="{{ route('praktikum.peserta.create') }}" class="border hover:border-blue-400 p-1 rounded-lg transition-all duration-300">
-
-            <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+            <button
+                class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                 <div class="flex flex-row gap-2 items-center">
                     <i class="fa-solid fa-plus"></i>
-                    {{ __('Tambah Peserta') }}
+                    {{ __('Tambah') }}
                 </div>
             </button>
 
         </a>
-
     </div>
 
     <table class="w-full overflow-hidden rounded-lg">
