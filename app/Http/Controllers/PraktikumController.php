@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asisten;
 use App\Models\MataKuliah;
 use App\Models\Nilai;
 use App\Models\PesertaPraktikum;
@@ -9,6 +10,7 @@ use App\Models\Postingan;
 use Illuminate\Http\Request;
 use App\Models\Praktikum;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class PraktikumController extends Controller
 {
@@ -18,7 +20,8 @@ class PraktikumController extends Controller
     public function index()
     {
         $praktikum = Praktikum::with('has_matkul', 'has_jadwal')->get();
-        return view('praktikum.index', compact('praktikum'));
+        $asisten = Asisten::where('id_user', Auth::user()->id)->first();
+        return view('praktikum.index', compact('praktikum', 'asisten'));
     }
 
     /**

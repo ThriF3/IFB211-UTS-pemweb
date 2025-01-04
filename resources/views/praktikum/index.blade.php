@@ -46,6 +46,71 @@
                     </thead>
                     <tbody class="text-center">
                         @foreach($praktikum as $data)
+                        @if (Auth::user()->role == 'asisten')
+                            @if ($asisten->id_user == Auth::user()->id)
+                                @if ($asisten->id_praktikum == $data->id_praktikum)
+                                <tr class="border-b-2 border-slate-100 text-slate-800">
+                                    <td class="text-center bg-sky-100">{{ $data['id_praktikum'] }}</td>
+                                    <td class="text-left pl-4">{{ $data->has_matkul->nama }}</td>
+                                    <td class="text-left">{{ $data['kelas'] }}</td>
+                                    <td class="text-left">
+                                        @if (isset($data->has_jadwal))
+                                        {{ $data->has_jadwal['waktu'] }}
+                                        @else
+                                        -
+                                        @endif
+                                    </td>
+                                    <!-- Add other columns as needed -->
+                                    <td class="text-left">
+                                        <div class="flex flex-row justify-start">
+
+                                            <a href="{{ route('praktikum.show', ['praktikum' => $data['id_praktikum'], 'section' => 'post']) }}">
+                                                <x-edit-button class="bg-sky-400 hover:bg-sky-300 border-r-0 rounded-r-none w-full">
+                                                    Detail
+                                                </x-edit-button>
+                                            </a>
+
+                                            <a href="{{ route('praktikum.edit', $data['id_praktikum']) }}">
+                                                <x-secondary-button class="border-x-0 rounded-none h-full">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </x-secondary-button>
+                                            </a>
+
+                                            <x-danger-button
+                                                x-data=""
+                                                x-on:click.prevent="$dispatch('open-modal', 'confirm-data-deletion-{{ $data['id_praktikum'] }}')"
+                                                class="border-l-0 rounded-l-none"><i class="fa-solid fa-trash"></i></x-danger-button>
+                                            <x-modal name="confirm-data-deletion-{{ $data['id_praktikum'] }}" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                                                <form action="{{ route('praktikum.destroy', $data['id_praktikum']) }}" method="POST" class="p-6">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <h2 class="text-lg font-medium text-gray-900">
+                                                        {{ __('Are you sure you want to delete this data?') }}
+                                                    </h2>
+
+                                                    <p class="mt-1 text-sm text-gray-600">
+                                                        {{ __('Once your data is deleted, it will be permanently deleted.') }}
+                                                    </p>
+
+                                                    <div class="mt-6 flex justify-end">
+                                                        <x-secondary-button x-on:click="$dispatch('close')">
+                                                            {{ __('Cancel') }}
+                                                        </x-secondary-button>
+
+                                                        <x-danger-button class="ms-3">
+                                                            {{ __('Delete Data') }}
+                                                        </x-danger-button>
+                                                    </div>
+                                                </form>
+                                            </x-modal>
+
+                                        </div>
+                                    </td>
+                                </tr>    
+                                @endif
+                            @endif
+                        @else
                         <tr class="border-b-2 border-slate-100 text-slate-800">
                             <td class="text-center bg-sky-100">{{ $data['id_praktikum'] }}</td>
                             <td class="text-left pl-4">{{ $data->has_matkul->nama }}</td>
@@ -105,6 +170,7 @@
                                 </div>
                             </td>
                         </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

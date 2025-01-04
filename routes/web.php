@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsistenController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MataKuliahController;
@@ -263,6 +264,17 @@ Route::get(
     '/postingan/download/{id}',
     [PostinganController::class, 'download']
 )->middleware(middleware: ['auth', 'verified'])->name('postingan.download');
+
+// Mahasiswa =================================================
+Route::get(
+    '/asisten',
+    [AsistenController::class, 'index']
+)->middleware(['auth', 'verified'])->name('asisten');
+
+Route::get(
+    '/nilai/create',
+    [AsistenController::class, 'create']
+)->middleware(['auth', 'verified'])->name('asisten.create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

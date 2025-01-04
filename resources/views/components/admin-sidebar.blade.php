@@ -161,6 +161,26 @@
                             <span class="flex-1 ms-3 whitespace-nowrap">Ruang</span>
                         </a>
                     </li>
+                    <li>
+                        <a
+                            href="{{ route('asisten') }}"
+                            @if (request()->routeIs('asisten'))
+                            class="flex items-center p-2 text-white rounded-lg  hover:bg-blue-300 group border bg-blue-400"
+                            @else
+                            class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
+                            @endif
+                            >
+                            <i 
+                            @if (request()->routeIs('asisten'))
+                            class="fa-solid fa-person-chalkboard text-white transition"
+                            @else
+                            class="fa-solid fa-person-chalkboard text-gray-500 transition duration-75  group-hover:text-gray-900"
+                            @endif
+                            ></i>
+
+                            <span class="flex-1 ms-3 whitespace-nowrap">Asisten</span>
+                        </a>
+                    </li>
                 @endif
             </ul>
 
