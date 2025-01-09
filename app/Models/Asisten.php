@@ -34,7 +34,7 @@ class Asisten extends Model
         return $this->hasOne(Praktikum::class, 'id_praktikum', 'id_praktikum');
     }
 
-    public function user()
+    public function has_user()
     {
         return $this->hasOne(User::class, 'id_user', 'id');
     }

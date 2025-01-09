@@ -16,12 +16,12 @@ class Peserta extends Migration
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->char('NRP', 9)->primary(); // Primary key with char(6) type
 
-            // $table->foreignId('id_user'); // Primary key with char(6) type
-            // $table->foreign('id_user') // Defines a foreign key
-            //       ->references('id')
-            //       ->on('users')
-            //       ->onDelete('restrict') // Cascade delete if the room is deleted
-            //       ->onUpdate('cascade'); // Cascade delete if the room is deleted
+            $table->foreignId('id_user');
+            $table->foreign('id_user')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('restrict')
+                  ->onUpdate('cascade');
 
             $table->char('nama', 50); // Example additional column
             $table->string('alamat'); // Example additional column

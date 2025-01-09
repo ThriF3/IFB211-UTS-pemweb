@@ -32,15 +32,15 @@
                 >Mahasiswa</a>
         </li>
     </ul>
-    <form method="POST" action="{{ route('register.asisten') }}">
+    <form method="POST" action="{{ route('register.mahasiswa') }}">
         @csrf
 
         <div class="mt-4">
             <x-input-label for="role" :value="__('Role')" />
             <select name="role" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
                 <option value="admin">Admin</option>
-                <option value="asisten" selected>Asisten</option>
-                <option value="mahasiswa">Mahasiswa</option>
+                <option value="asisten">Asisten</option>
+                <option value="mahasiswa" selected>Mahasiswa</option>
             </select>
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>
@@ -101,25 +101,15 @@
             </div>
 
             <div class="col-span-3">
-                <x-input-label for="id_praktikum" :value="__('Kode Praktikum')" />
-                <select name="id_praktikum" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
-                    @foreach ($praktikum as $data)
-                    <option value="{{ $data['id_praktikum'] }}">{{ $data['id_praktikum'] }}</option>
-                    @endforeach
-                </select>
-                <x-input-error :messages="$errors->get('id_praktikum')" class="mt-2" />
+                <x-input-label for="jurusan" :value="__('Jurusan')" />
+                <x-text-input id="jurusan" class="mt-1 w-full" type="text" name="jurusan" :value="old('jurusan')" required autofocus autocomplete="name" />
+                <x-input-error :messages="$errors->get('jurusan')" class="mt-2" />
             </div>
 
             <div class="col-span-1">
                 <x-input-label for="semester" :value="__('Semester')" />
                 <x-text-input id="semester" class="mt-1 w-full" type="text" name="semester" :value="old('semester')" required autofocus autocomplete="name" />
                 <x-input-error :messages="$errors->get('semester')" class="mt-2" />
-            </div>
-
-            <div class="col-span-4">
-                <x-input-label for="jurusan" :value="__('Jurusan')" />
-                <x-text-input id="jurusan" class="mt-1 w-full" type="text" name="jurusan" :value="old('jurusan')" required autofocus autocomplete="name" />
-                <x-input-error :messages="$errors->get('jurusan')" class="mt-2" />
             </div>
 
             <div class="col-span-2">

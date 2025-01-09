@@ -8,16 +8,6 @@
             </h2>
 
             <!-- Add New Ruang Button -->
-            <a href="{{ route('nilai.create') }}">
-
-                <x-primary-button>
-                    <div class="flex flex-row gap-2 items-center">
-                        <i class="fa-solid fa-plus"></i>
-                        {{ __('Tambah') }}
-                    </div>
-                </x-primary-button>
-
-            </a>
 
         </div>
 

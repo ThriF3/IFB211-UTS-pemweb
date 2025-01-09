@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Asisten;
+use App\Models\Mahasiswa;
 use App\Models\Praktikum;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -29,6 +30,11 @@ class RegisteredUserController extends Controller
     {
         $praktikum = Praktikum::all();
         return view('auth.register-asisten', compact('praktikum'));
+    }
+
+    public function create_mahasiswa(): View
+    {
+        return view('auth.register-mahasiswa');
     }
 
     /**
@@ -94,6 +100,57 @@ class RegisteredUserController extends Controller
         Asisten::create([
             'NRP' => $request->NRP,
             'id_praktikum' => $request->id_praktikum,
+            'id_user' => $user->id,
+            'nama' => $request->name,
+            'alamat' => $request->alamat,
+            'gender' => $request->gender,
+            'no_telp' => $request->no_telp,
+            'angkatan' => $request->angkatan,
+            'total_sks' => $request->total_sks,
+            'jurusan' => $request->jurusan,
+            'semester' => $request->semester,
+        ]);
+        event(new Registered($user));
+
+        Auth::login($user);
+
+
+        return redirect(RouteServiceProvider::HOME);
+    }
+
+    /**
+     * Handle an registrasi pengguna mahasiswa
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store_mahasiswa(Request $request): RedirectResponse
+    {
+        $request->validate([
+            // User Registration
+            'name' => ['required', 'string', 'max:255'],
+            'role' => 'required|in:admin,asisten,mahasiswa',
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // Insert to asisten
+            'NRP' => 'required|string|max:9|unique:mahasiswa,NRP',
+            'alamat' => 'required|string|max:255',
+            'gender' => 'required|in:P,W',
+            'no_telp' => 'required|string|max:15',
+            'angkatan' => 'required|string|max:4',
+            'total_sks' => 'required|integer',
+            'jurusan' => 'required|string|max:50',
+            'semester' => 'required|string|max:50',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'role' => $request->role,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        Mahasiswa::create([
+            'NRP' => $request->NRP,
             'id_user' => $user->id,
             'nama' => $request->name,
             'alamat' => $request->alamat,

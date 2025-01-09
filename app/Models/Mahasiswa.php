@@ -17,6 +17,7 @@ class Mahasiswa extends Model
 
     protected $fillable = [
         'NRP', 
+        'id_user',
         'nama', 
         'alamat', 
         'gender', 
@@ -26,4 +27,9 @@ class Mahasiswa extends Model
         'jurusan',
         'semester',
     ];
+
+    public function has_user()
+    {
+        return $this->hasOne(User::class, 'id_user', 'id');
+    }
 }

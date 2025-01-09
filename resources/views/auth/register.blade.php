@@ -1,4 +1,37 @@
 <x-guest-layout>
+    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200  ">
+        <li class="me-2">
+            <a
+                href="{{ url('register') }}"
+                aria-current="page"
+                @if (request()->Is('register'))
+                class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600 "
+                @else
+                class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 "
+                @endif
+                >Admin</a>
+        </li>
+        <li class="me-2">
+            <a
+                href="{{ url('register/asisten') }}"
+                @if (request()->Is('register/asisten'))
+                class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600 "
+                @else
+                class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 "
+                @endif
+                >Asisten</a>
+        </li>
+        <li class="me-2">
+            <a
+                href="{{ url('register/mahasiswa') }}"
+                @if (request()->Is('register/mahasiswa'))
+                class="inline-block p-4 text-blue-600 bg-gray-200 rounded-t-lg active border-b-2 border-blue-600 "
+                @else
+                class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 "
+                @endif
+                >Mahasiswa</a>
+        </li>
+    </ul>
     <form method="POST" action="{{ route('register') }}">
         @csrf
         <!-- Name -->

@@ -17,9 +17,13 @@ Route::middleware('guest')->group(function () {
 
     Route::get('register/asisten', [RegisteredUserController::class, 'create_asisten'])
         ->name('register.asisten');
+    Route::post('register/asisten', [RegisteredUserController::class, 'store_asisten'])->name('register.asisten');
+
+    Route::get('register/mahasiswa', [RegisteredUserController::class, 'create_mahasiswa'])
+        ->name('register.mahasiswa');
+    Route::post('register/mahasiswa', [RegisteredUserController::class, 'store_mahasiswa'])->name('register.mahasiswa');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
-    Route::post('register/asisten', [RegisteredUserController::class, 'store_asisten'])->name('register.asisten');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
