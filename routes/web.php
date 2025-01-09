@@ -146,6 +146,11 @@ Route::get(
 )->middleware(['auth', 'verified'])->name('mahasiswa');
 
 Route::get(
+    '/mahasiswa/detail_kelas',
+    [MahasiswaController::class, 'detail_kelas']
+)->middleware(['auth', 'verified'])->name('mahasiswa.detail_kelas');
+
+Route::get(
     '/mahasiswa/edit/{mahasiswa}',
     [MahasiswaController::class, 'edit']
 )->middleware(['auth', 'verified'])->name('mahasiswa.edit');

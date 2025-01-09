@@ -23,7 +23,10 @@ class MahasiswaController extends Controller
     {
         return view('mahasiswa.create');
     }
-
+    public function detail_kelas()
+    {
+        return view('mahasiswa.detail-kelas');
+    }
     /**
      * Store a newly created resource in storage.
      */
