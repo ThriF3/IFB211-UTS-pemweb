@@ -165,6 +165,12 @@ Route::delete(
     [MahasiswaController::class, 'destroy']
 )->middleware(['auth', 'verified'])->name('mahasiswa.destroy');
 
+Route::get(
+    '/mahasiswadashboard',
+    [MahasiswaController::class, 'dashboard']
+)->middleware(['auth', 'verified'])->name('mahasiswa.dashboard');
+
+
 // Jadwal =================================================
 Route::get(
     '/jadwal',
