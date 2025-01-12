@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
+use App\Models\PesertaPraktikum;
+use App\Models\Postingan;
+use App\Models\Praktikum;
 
 class MahasiswaController extends Controller
 {
@@ -22,6 +25,16 @@ class MahasiswaController extends Controller
     public function create()
     {
         return view('mahasiswa.create');
+    }
+
+    /**
+     * Show the form for uploading nilai.
+     */
+    public function upload_nilai(string $id, string $nrp)
+    {
+        $postingan = Postingan::find($id);
+        $mhsw = Mahasiswa::all();
+        return view('mahasiswa.upload-nilai', compact('postingan', 'nrp', 'mhsw'));
     }
 
     /**
