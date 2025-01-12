@@ -8,16 +8,6 @@
             </h2>
 
             <!-- Add New Ruang Button -->
-            <a href="{{ route('nilai.create') }}">
-
-                <x-primary-button>
-                    <div class="flex flex-row gap-2 items-center">
-                        <i class="fa-solid fa-plus"></i>
-                        {{ __('Tambah') }}
-                    </div>
-                </x-primary-button>
-
-            </a>
 
         </div>
 
@@ -32,7 +22,7 @@
                 <table class="w-full overflow-hidden rounded-lg">
                     <thead class="bg-slate-100">
                         <tr class="text-slate-600">
-                            <th class="py-4">Kode Nilai</th>
+                            <th class="py-4 bg-sky-400 text-white">Kode Nilai</th>
                             <th class="py-4">Kode Praktikum</th>
                             <th class="py-4">NRP</th>
                             <th class="py-4">Nama Mahasiswa</th>
@@ -45,7 +35,7 @@
                     <tbody class="text-center">
                         @foreach($nilai as $data)
                         <tr class="border-b-2 border-slate-100 text-slate-800">
-                            <td class="py-4">{{ $data['id_nilai'] }}</td>
+                            <td class="py-4 bg-sky-100">{{ $data['id_nilai'] }}</td>
                             <td class="py-4">
                                 {{ $data->has_praktikum['id_matkul'] }}
                             </td>

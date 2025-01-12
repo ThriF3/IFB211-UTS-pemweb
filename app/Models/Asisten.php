@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mahasiswa extends Model
+class Asisten extends Model
 {
     use HasFactory;
 
-    protected $table = 'mahasiswa';
+    protected $table = 'asisten';
     // Primary Key
     protected $primaryKey = 'NRP';
     public $incrementing = false;
@@ -18,6 +18,7 @@ class Mahasiswa extends Model
     protected $fillable = [
         'NRP', 
         'id_user',
+        'id_praktikum',
         'nama', 
         'alamat', 
         'gender', 
@@ -27,6 +28,11 @@ class Mahasiswa extends Model
         'jurusan',
         'semester',
     ];
+
+    public function has_praktikum()
+    {
+        return $this->hasOne(Praktikum::class, 'id_praktikum', 'id_praktikum');
+    }
 
     public function has_user()
     {

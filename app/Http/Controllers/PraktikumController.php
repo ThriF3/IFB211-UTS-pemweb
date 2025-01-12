@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asisten;
 use App\Models\MataKuliah;
 use App\Models\Nilai;
 use App\Models\PesertaPraktikum;
+use App\Models\Postingan;
 use Illuminate\Http\Request;
 use App\Models\Praktikum;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class PraktikumController extends Controller
 {
@@ -16,8 +19,9 @@ class PraktikumController extends Controller
      */
     public function index()
     {
-        $praktikum = Praktikum::with('has_matkul')->get();
-        return view('praktikum.index', compact('praktikum'));
+        $praktikum = Praktikum::with('has_matkul', 'has_jadwal')->get();
+        $asisten = Asisten::where('id_user', Auth::user()->id)->first();
+        return view('praktikum.index', compact('praktikum', 'asisten'));
     }
 
     /**
@@ -53,21 +57,35 @@ class PraktikumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, string $section = null)
     {
-        $praktikum = Praktikum::with('has_matkul', 'has_jadwal')->find($id);
+        $praktikum = Praktikum::with('has_matkul', 'has_jadwal', 'has_posting')->find($id);
+        if (!$praktikum) {
+            return redirect()->route('praktikum.index')->with('error', 'Praktikum not found');
+        }
+
         $praktikum_peserta = PesertaPraktikum::with('has_mahasiswa')
             ->where('id_praktikum', $id)
             ->get();
         $nilai = Nilai::with('has_mahasiswa')
             ->where('id_praktikum', $id)
             ->get();
+        $posting = $praktikum->has_posting;
 
-        if (!$praktikum) {
-            return redirect()->route('praktikum.index')->with('error', 'Praktikum not found');
+        switch ($section) {
+            case 'post':
+            return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'))
+                ->with('view', view('praktikum.detail.post', compact('praktikum', 'praktikum_peserta', 'posting'))->render());
+            case 'peserta':
+            return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'))
+                ->with('view', view('praktikum.detail.peserta', compact('praktikum', 'praktikum_peserta'))->render());
+            case 'nilai':
+            return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'))
+                ->with('view', view('praktikum.detail.nilai', compact('praktikum', 'nilai'))->render());
+            default:
+            return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'))
+                ->with('view', view('praktikum.detail.post', compact('praktikum', 'praktikum_peserta', 'posting'))->render());
         }
-
-        return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'));
     }
 
     /**

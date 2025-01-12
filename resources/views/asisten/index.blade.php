@@ -1,3 +1,6 @@
+<div>
+    <!-- Always remember that you are absolutely unique. Just like everyone else. - Margaret Mead -->
+</div>
 <x-app-layout>
     <x-slot name="header">
 
@@ -8,8 +11,8 @@
             </h2>
 
             <!-- Add New mahasiswa Button -->
-            <form method="get" action="{{ route('mahasiswa.create') }}">
-                <x-primary-button href="{{ route('mahasiswa.create') }}">
+            <form method="get" action="{{ route('asisten.create') }}">
+                <x-primary-button href="{{ route('asisten.create') }}">
                     <div class="flex flex-row gap-2 items-center">
                         <i class="fa-solid fa-plus"></i>
                         {{ __('Tambah') }}
@@ -23,7 +26,7 @@
 
     <div class="py-12">
 
-        <!-- mahasiswa Table -->
+        <!-- Asisten Table -->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <div class="bg-white overflow-hidden shadow-sm p-4 sm:rounded-lg">
@@ -43,7 +46,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        @foreach($mhsw as $data)
+                        @foreach($asisten as $data)
                         <tr class="border-b-2 border-slate-100 text-slate-800">
                             <td class="py-4 bg-sky-100">{{ $data['NRP'] }}</td>
                             <td class="py-4">{{ $data['nama'] }}</td>

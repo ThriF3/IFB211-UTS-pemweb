@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AsistenController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MataKuliahController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PesertaPraktikumController;
+use App\Http\Controllers\PostinganController;
 use App\Http\Controllers\PraktikumController;
 use App\Http\Controllers\RuangController;
 use Illuminate\Http\Request;
@@ -32,3 +34,5 @@ Route::apiResource('praktikum', PraktikumController::class);
 Route::apiResource('jadwal', JadwalController::class);
 Route::apiResource('peserta', PesertaPraktikumController::class);
 Route::apiResource('nilai', NilaiController::class);
+Route::apiResource('postingan', PostinganController::class);
+Route::apiResource('asisten', AsistenController::class);

@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AsistenController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MataKuliahController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PesertaPraktikumController;
+use App\Http\Controllers\PostinganController;
 use App\Http\Controllers\PraktikumController;
 use App\Http\Controllers\PraktikumDetailController;
 use App\Http\Controllers\ProfileController;
@@ -92,6 +94,11 @@ Route::get(
 )->middleware(['auth', 'verified'])->name('praktikum.show');
 
 Route::get(
+    '/praktikum/detail/{praktikum}/{section}',
+    [PraktikumController::class, 'show']
+)->middleware(['auth', 'verified'])->name('praktikum.show');
+
+Route::get(
     '/praktikum/edit/{praktikum}',
     [PraktikumController::class, 'edit']
 )->middleware(['auth', 'verified'])->name('praktikum.edit');
@@ -128,10 +135,25 @@ Route::post(
     [PraktikumDetailController::class, 'store_nilai']
 )->middleware(['auth', 'verified'])->name('praktikum.nilai.store');
 
+Route::put(
+    '/praktikum/nilai/update/{id}',
+    [PraktikumDetailController::class, 'update_nilai']
+)->middleware(['auth', 'verified'])->name('praktikum.nilai.update');
+
 Route::get(
     '/praktikum/nilai/create/{id}',
     [PraktikumDetailController::class, 'create_nilai']
 )->middleware(['auth', 'verified'])->name('praktikum.nilai.create');
+
+Route::get(
+    '/praktikum/nilai/edit/{id}',
+    [PraktikumDetailController::class, 'edit_nilai']
+)->middleware(['auth', 'verified'])->name('praktikum.nilai.edit');
+
+Route::get(
+    '/praktikum/nilai/download/{id}',
+    [PraktikumDetailController::class, 'download_nilai']
+)->middleware(middleware: ['auth', 'verified'])->name('praktikum.nilai.download');
 
 Route::delete(
     '/praktikum/nilai/{id}',
@@ -228,6 +250,42 @@ Route::delete(
     [NilaiController::class, 'destroy']
 )->middleware(['auth', 'verified'])->name('nilai.destroy');
 
+// Postingan
+Route::get(
+    '/postingan/create/{id_praktikum}',
+    [PostinganController::class, 'create']
+)->middleware(middleware: ['auth', 'verified'])->name('postingan.create');
+
+Route::get(
+    '/postingan/edit/{id}',
+    [PostinganController::class, 'edit']
+)->middleware(['auth', 'verified'])->name('postingan.edit');
+
+Route::post(
+    '/postingan/store',
+    [PostinganController::class, 'store']
+)->middleware(middleware: ['auth', 'verified'])->name('postingan.store');
+
+Route::delete(
+    '/nilai/{id}',
+    [PostinganController::class, 'destroy']
+)->middleware(['auth', 'verified'])->name('postingan.destroy');
+
+Route::get(
+    '/postingan/download/{id}',
+    [PostinganController::class, 'download']
+)->middleware(middleware: ['auth', 'verified'])->name('postingan.download');
+
+// Mahasiswa =================================================
+Route::get(
+    '/asisten',
+    [AsistenController::class, 'index']
+)->middleware(['auth', 'verified'])->name('asisten');
+
+Route::get(
+    '/nilai/create',
+    [AsistenController::class, 'create']
+)->middleware(['auth', 'verified'])->name('asisten.create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

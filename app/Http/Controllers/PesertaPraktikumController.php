@@ -41,7 +41,7 @@ class PesertaPraktikumController extends Controller
 
         $peserta = PesertaPraktikum::create($validatedData);
 
-        return redirect()->route('praktikum.show', $peserta['id_praktikum'])->with('status', 'Data praktikum berhasil ditambahkan.');
+        return redirect()->route('praktikum.show', [$peserta['id_praktikum'], 'peserta'])->with('status', 'Data praktikum berhasil ditambahkan.');
     }
 
     /**
