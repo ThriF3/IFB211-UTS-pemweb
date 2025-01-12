@@ -173,6 +173,11 @@ Route::get(
 )->middleware(['auth', 'verified'])->name('mahasiswa.upload');
 
 Route::get(
+    '/mahasiswa/detail_kelas',
+    [MahasiswaController::class, 'detail_kelas']
+)->middleware(['auth', 'verified'])->name('mahasiswa.detail_kelas');
+
+Route::get(
     '/mahasiswa/edit/{mahasiswa}',
     [MahasiswaController::class, 'edit']
 )->middleware(['auth', 'verified'])->name('mahasiswa.edit');
@@ -191,6 +196,12 @@ Route::delete(
     '/mahasiswa/{id}',
     [MahasiswaController::class, 'destroy']
 )->middleware(['auth', 'verified'])->name('mahasiswa.destroy');
+
+Route::get(
+    '/mahasiswadashboard',
+    [MahasiswaController::class, 'dashboard']
+)->middleware(['auth', 'verified'])->name('mahasiswa.dashboard');
+
 
 // Jadwal =================================================
 Route::get(

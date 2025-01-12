@@ -26,7 +26,10 @@ class MahasiswaController extends Controller
     {
         return view('mahasiswa.create');
     }
-
+    public function detail_kelas()
+    {
+        return view('mahasiswa.detail-kelas');
+    }
     /**
      * Show the form for uploading nilai.
      */
@@ -127,4 +130,9 @@ class MahasiswaController extends Controller
         $mhsw->delete();
         return redirect()->route('mahasiswa');
     }
+    public function dashboard()
+    {
+        return view('mahasiswa.dashboard');
+    }
+
 }
