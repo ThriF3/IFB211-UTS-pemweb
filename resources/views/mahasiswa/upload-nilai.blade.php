@@ -23,38 +23,30 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <div class="grid grid-cols-4 gap-4">
 
-                        <div class="col-span-2">
+                        <div class="col-span-2 hidden">
                             <x-input-label for="id_praktikum" :value="__('Kode Praktikum')" />
                             <select name="id_praktikum" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
-                                <option value="{{ $praktikum['id_praktikum'] }}"
-                                @if ($id == $praktikum['id_praktikum'])
-                                    selected
-                                @endif
-                                >{{ $praktikum['id_praktikum'] }}</option>
+                                <option value="{{ $postingan['id_praktikum'] }}"
+                                    selected>{{ $postingan['id_praktikum'] }}</option>
                             </select>
                             <x-input-error :messages="$errors->get('id_praktikum')" class="mt-2" />
                         </div>
 
-                        <div class="col-span-2">
+                        <div class="col-span-2 hidden">
                             <x-input-label for="id_post" :value="__('Posting')" />
                             <select name="id_post" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
-                                @foreach ($praktikum->has_posting as $data)
-                                <option value="{{ $data['id_post'] }}"
-                                >{{$data['judul']}}</option>
-                                @endforeach
+                                <option value="{{ $postingan['id_post'] }}">{{$postingan['judul']}}</option>
                             </select>
                             <x-input-error :messages="$errors->get('id_praktikum')" class="mt-2" />
                         </div>
 
-                        <div class="col-span-2">
+                        <div class="col-span-2 hidden">
                             <x-input-label for="NRP" :value="__('Nama')" />
                             <select name="NRP" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
-                                @foreach ($praktikum->has_peserta as $data)
-                                @foreach ($mhsw as $peserta)
-                                @if ($data['NRP'] == $peserta['NRP'])
-                                <option value="{{ $peserta['NRP'] }}">{{ $peserta['nama'] }}</option>
+                                @foreach ($mhsw as $data)
+                                @if ($data['NRP'] == $nrp)
+                                <option value="{{ $data['NRP'] }}">{{ $data['nama'] }}</option>
                                 @endif
-                                @endforeach
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('NRP')" class="mt-2" />
@@ -76,7 +68,7 @@
 
                         <div class="col-span-4 flex flex-row justify-end">
 
-                            <a href="{{ route('praktikum.show', [$id, 'nilai']) }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                            <a href="{{ route('praktikum.show', [$postingan->id_praktikum, 'nilai']) }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                                 Kembali
                             </a>
 

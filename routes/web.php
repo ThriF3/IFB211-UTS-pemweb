@@ -168,6 +168,11 @@ Route::get(
 )->middleware(['auth', 'verified'])->name('mahasiswa');
 
 Route::get(
+    '/mahasiswa/upload/{id_post}/{NRP}',
+    [MahasiswaController::class, 'upload_nilai']
+)->middleware(['auth', 'verified'])->name('mahasiswa.upload');
+
+Route::get(
     '/mahasiswa/detail_kelas',
     [MahasiswaController::class, 'detail_kelas']
 )->middleware(['auth', 'verified'])->name('mahasiswa.detail_kelas');
