@@ -117,4 +117,9 @@ class MahasiswaController extends Controller
         $mhsw->delete();
         return redirect()->route('mahasiswa');
     }
+    public function dashboard()
+    {
+        return view('mahasiswa.dashboard');
+    }
+
 }
