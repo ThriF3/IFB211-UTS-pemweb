@@ -11,6 +11,7 @@ use App\Http\Controllers\PraktikumController;
 use App\Http\Controllers\PraktikumDetailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RuangController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,9 +29,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get(
+    '/dashboard',
+    [MahasiswaController::class, 'dashboard']
+)->middleware(['auth', 'verified'])->name('dashboard');
 
 // Ruang Views ================================>
 Route::get(

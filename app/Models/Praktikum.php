@@ -45,4 +45,9 @@ class Praktikum extends Model
     {
         return $this->hasMany(Postingan::class,'id_praktikum', 'id_praktikum');
     }
+
+    public function has_asisten()
+    {
+        return $this->hasMany(Asisten::class,'id_praktikum', 'id_praktikum');
+    }
 }

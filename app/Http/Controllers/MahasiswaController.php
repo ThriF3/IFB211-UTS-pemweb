@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asisten;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\PesertaPraktikum;
 use App\Models\Postingan;
 use App\Models\Praktikum;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class MahasiswaController extends Controller
 {
@@ -132,7 +135,15 @@ class MahasiswaController extends Controller
     }
     public function dashboard()
     {
-        return view('mahasiswa.dashboard');
+        if (Auth::user()->role == 'mahasiswa') {
+            $user = User::with('has_mahasiswa')->find(Auth::user()->id);
+            // dd($user);
+            $praktikum = Praktikum::with('has_jadwal', 'has_peserta', 'has_matkul', 'has_asisten')->get();
+            // dd($praktikum);
+            return view('mahasiswa.dashboard', compact('praktikum', 'user'));
+        } else {
+            return view('dashboard');
+        }
     }
 
 }

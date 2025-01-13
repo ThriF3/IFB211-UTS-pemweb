@@ -43,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function has_mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'id_user', 'id');
+    }
 }

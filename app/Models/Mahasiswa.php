@@ -30,6 +30,6 @@ class Mahasiswa extends Model
 
     public function has_user()
     {
-        return $this->hasOne(User::class, 'id_user', 'id');
+        return $this->hasOne(User::class, 'id', 'id_user');
     }
 }
