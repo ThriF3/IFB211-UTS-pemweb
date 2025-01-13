@@ -11,11 +11,15 @@
                 </div>
 
                 <!-- Navigation Links -->
+                @if (Auth::user()->role == 'mahasiswa')
+
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+
+                @else
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('ruang')" :active="request()->routeIs('ruang')">
@@ -52,6 +56,9 @@
                         {{ __('Nilai') }}
                     </x-nav-link>
                 </div>
+
+                @endif
+
             </div>
 
             <!-- Settings Dropdown -->

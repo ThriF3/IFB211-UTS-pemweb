@@ -175,7 +175,7 @@ Route::get(
 )->middleware(['auth', 'verified'])->name('mahasiswa.upload');
 
 Route::get(
-    '/mahasiswa/detail_kelas',
+    '/mahasiswa/detail_kelas/{id_post}',
     [MahasiswaController::class, 'detail_kelas']
 )->middleware(['auth', 'verified'])->name('mahasiswa.detail_kelas');
 

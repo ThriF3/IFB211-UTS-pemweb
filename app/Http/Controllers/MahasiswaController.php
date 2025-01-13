@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Asisten;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
+use App\Models\Nilai;
 use App\Models\PesertaPraktikum;
 use App\Models\Postingan;
 use App\Models\Praktikum;
@@ -29,9 +30,12 @@ class MahasiswaController extends Controller
     {
         return view('mahasiswa.create');
     }
-    public function detail_kelas()
+    public function detail_kelas(string $id)
     {
-        return view('mahasiswa.detail-kelas');
+        $postingan = Postingan::find($id);
+        $user = User::with('has_mahasiswa')->find(Auth::user()->id);
+        $nilai = Nilai::get();
+        return view('mahasiswa.detail-kelas', compact('postingan', 'user', 'nilai'));
     }
     /**
      * Show the form for uploading nilai.

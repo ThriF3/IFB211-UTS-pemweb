@@ -147,6 +147,7 @@
                         @foreach ($praktikum_peserta as $peserta)
                         @if ($peserta['NRP'] == $data['NRP'])
                         {{ $peserta->has_mahasiswa['nama'] }}
+                        @break
                         @endif
                         @endforeach
                     </td>

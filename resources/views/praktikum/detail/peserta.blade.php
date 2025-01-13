@@ -8,6 +8,8 @@
             <h2 class="text-2xl font-bold py-2 px-2">Mahasiswa</span></h2>
         </div>
         <hr class="border border-blue-100 w-full mx-2">
+        @if (Auth::user()->role == 'mahasiswa')
+        @else
         <a href="{{ route('praktikum.peserta.create') }}"
             class="border hover:border-blue-400 p-1 rounded-lg transition-all duration-300">
 
@@ -20,6 +22,7 @@
             </button>
 
         </a>
+        @endif
     </div>
 
     <table class="w-full overflow-hidden rounded-lg">
@@ -29,7 +32,10 @@
                 <th class="py-4">NRP</th>
                 <th class="py-4">Nama Mahasiswa</th>
                 <!-- Add other columns as needed -->
-                <th class="py-4">Aksi</th>
+                 @if (Auth::user()->role == 'mahasiswa')
+                 @else    
+                 <th class="py-4">Aksi</th>
+                 @endif
             </tr>
         </thead>
         <tbody class="text-center">
@@ -39,39 +45,42 @@
                 <td class="py-4">{{ $data['NRP'] }}</td>
                 <td class="py-4">{{ $data->has_mahasiswa['nama'] }}</td>
                 <!-- Add other columns as needed -->
-                <td>
-                    <div class="flex flex-row justify-center gap-4">
-
-                        <x-danger-button
-                            x-data=""
-                            x-on:click.prevent="$dispatch('open-modal', 'confirm-data-deletion-{{ $data['id_peserta'] }}')">{{ __('Delete Data') }}</x-danger-button>
-                        <x-modal name="confirm-data-deletion-{{ $data['id_peserta'] }}" :show="$errors->userDeletion->isNotEmpty()" focusable>
-                            <form action="{{ route('praktikum.peserta.destroy', $data['id_peserta']) }}" method="POST" class="p-6">
-                                @csrf
-                                @method('DELETE')
-
-                                <h2 class="text-lg font-medium text-gray-900">
-                                    {{ __('Are you sure you want to delete this data?') }}
-                                </h2>
-
-                                <p class="mt-1 text-sm text-gray-600">
-                                    {{ __('Once your data is deleted, it will be permanently deleted.') }}
-                                </p>
-
-                                <div class="mt-6 flex justify-end">
-                                    <x-secondary-button x-on:click="$dispatch('close')">
-                                        {{ __('Cancel') }}
-                                    </x-secondary-button>
-
-                                    <x-danger-button class="ms-3">
-                                        {{ __('Delete Peserta') }}
-                                    </x-danger-button>
-                                </div>
-                            </form>
-                        </x-modal>
-
-                    </div>
-                </td>
+                 @if (Auth::user()->role == 'mahasiswa')
+                 @else    
+                 <td>
+                     <div class="flex flex-row justify-center gap-4">
+ 
+                         <x-danger-button
+                             x-data=""
+                             x-on:click.prevent="$dispatch('open-modal', 'confirm-data-deletion-{{ $data['id_peserta'] }}')">{{ __('Delete Data') }}</x-danger-button>
+                         <x-modal name="confirm-data-deletion-{{ $data['id_peserta'] }}" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                             <form action="{{ route('praktikum.peserta.destroy', $data['id_peserta']) }}" method="POST" class="p-6">
+                                 @csrf
+                                 @method('DELETE')
+ 
+                                 <h2 class="text-lg font-medium text-gray-900">
+                                     {{ __('Are you sure you want to delete this data?') }}
+                                 </h2>
+ 
+                                 <p class="mt-1 text-sm text-gray-600">
+                                     {{ __('Once your data is deleted, it will be permanently deleted.') }}
+                                 </p>
+ 
+                                 <div class="mt-6 flex justify-end">
+                                     <x-secondary-button x-on:click="$dispatch('close')">
+                                         {{ __('Cancel') }}
+                                     </x-secondary-button>
+ 
+                                     <x-danger-button class="ms-3">
+                                         {{ __('Delete Peserta') }}
+                                     </x-danger-button>
+                                 </div>
+                             </form>
+                         </x-modal>
+ 
+                     </div>
+                 </td>
+                 @endif
             </tr>
             @endforeach
         </tbody>

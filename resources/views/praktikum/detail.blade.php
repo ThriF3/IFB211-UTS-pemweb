@@ -16,7 +16,13 @@
 
             <div class="flex flex-row gap-4">
 
-                <a href="{{ route('praktikum') }}">
+                <a 
+                @if (Auth::user()->role == 'mahasiswa')
+                href="{{ route('dashboard') }}"    
+                @else
+                href="{{ route('praktikum') }}"
+                @endif
+                >
 
                     <x-secondary-button>
                         <div class="flex flex-row gap-2 items-center">

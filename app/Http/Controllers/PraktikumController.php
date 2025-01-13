@@ -75,7 +75,7 @@ class PraktikumController extends Controller
         switch ($section) {
             case 'post':
             return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'))
-                ->with('view', view('praktikum.detail.post', compact('praktikum', 'praktikum_peserta', 'posting'))->render());
+                ->with('view', view('praktikum.detail.post', compact('praktikum', 'praktikum_peserta', 'posting', 'nilai'))->render());
             case 'peserta':
             return view('praktikum.detail', compact('praktikum', 'praktikum_peserta', 'nilai'))
                 ->with('view', view('praktikum.detail.peserta', compact('praktikum', 'praktikum_peserta'))->render());

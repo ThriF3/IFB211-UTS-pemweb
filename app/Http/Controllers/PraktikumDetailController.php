@@ -55,7 +55,8 @@ class PraktikumDetailController extends Controller
             'file_content' => $filePath,
         ]);
 
-        return redirect()->route('praktikum.show', [$request->input('id_praktikum'), 'nilai'])->with('status', 'Data nilai berhasil ditambahkan.');
+        // return redirect()->route('praktikum.show', [$request->input('id_praktikum'), 'nilai'])->with('status', 'Data nilai berhasil ditambahkan.');
+        return redirect()->back()->with('status', 'Data nilai berhasil diperbarui.');
     }
 
     public function edit_nilai($id)

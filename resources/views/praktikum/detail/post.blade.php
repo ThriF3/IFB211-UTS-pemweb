@@ -12,6 +12,8 @@
             <h2 class="text-2xl font-bold py-2 px-2">Posting</span></h2>
         </div>
         <hr class="border border-blue-100 w-full mx-2">
+        @if (Auth::user()->role == 'mahasiswa')
+        @else
         <a href="{{ route('postingan.create', $praktikum['id_praktikum']) }}"
             class="border hover:border-blue-400 p-1 rounded-lg transition-all duration-300">
 
@@ -24,6 +26,7 @@
             </button>
 
         </a>
+        @endif
     </div>
 
     {{-- Content --}}
@@ -110,22 +113,50 @@
                         <div class="flex flex-col justify-center">
                             <h4 class="font-bold text-xl">Deskripsi</h4>
                         </div>
-                        <div class="flex justify-end gap-2 col-span-2">
+                        <div class="flex justify-end gap-2 col-span-2 items-center">
+                            @if (Auth::user()->role == 'mahasiswa')
+                            <h4 class="font-bold text-s text-blue-500">
+                                @foreach ($nilai as $nilai_data)
+                                    @if ($data->id_post == $nilai_data->id_post)
+                                        @if ($nilai_data->NRP == Auth::user()->has_mahasiswa->NRP)    
+                                            @if (is_null($nilai_data->nilai))
+                                            Belum dinilai
+                                            @break
+                                            @else
+                                            {{$nilai_data->nilai}}/100
+                                            @break
+                                            @endif
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </h4>
+                            @endif
                             <a href="{{ route('postingan.download', $data->id_post) }}"
                                 class="inline-flex gap-2 items-center px-4 py-2 bg-white border-blue-600 border rounded-md font-semibold text-xs text-blue-700 hover:text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">
                                 <i class="fa-solid fa-download"></i>
                                 <span>Download</span>
                             </a>
 
+                            @if (Auth::user()->role == 'mahasiswa')
+                            <a href="{{ route('mahasiswa.detail_kelas', $data->id_post) }}">
+                                <x-secondary-button>
+                                    Detail
+                                </x-secondary-button>
+                            </a>
+                            @else
                             <a href="{{ route('postingan.edit', $data->id_post) }}">
                                 <x-secondary-button>
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </x-secondary-button>
                             </a>
+                            @endif
 
+                            @if (Auth::user()->role == 'mahasiswa')
+                            @else
                             <x-danger-button x-data=""
                                 x-on:click.prevent="$dispatch('open-modal', 'confirm-data-deletion-{{ $data['id_post'] }}')">
                                 <i class="fa-solid fa-trash"></i></x-danger-button>
+                            @endif
                             <x-modal name="confirm-data-deletion-{{ $data['id_post'] }}" :show="$errors->userDeletion->isNotEmpty()" focusable>
                                 <form action="{{ route('postingan.destroy', $data['id_post']) }}" method="POST"
                                     class="p-6">
