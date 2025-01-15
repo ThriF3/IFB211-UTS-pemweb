@@ -11,6 +11,7 @@ use App\Models\Postingan;
 use App\Models\Praktikum;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class MahasiswaController extends Controller
 {
@@ -64,7 +65,25 @@ class MahasiswaController extends Controller
             'semester' => 'required|string|max:50',
         ]);
 
-        Mahasiswa::create($validatedData);
+        $user = User::create([
+            'name' => $request->nama,
+            'role' => "mahasiswa",
+            'email' => $request->email,
+            'password' => Hash::make($request->NRP),
+        ]);
+
+        Mahasiswa::create([
+            'NRP' => $request->NRP,
+            'id_user' => $user->id,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'gender' => $request->gender,
+            'no_telp' => $request->no_telp,
+            'angkatan' => $request->angkatan,
+            'total_sks' => $request->total_sks,
+            'jurusan' => $request->jurusan,
+            'semester' => $request->semester,
+        ]); 
 
         return redirect()->route('mahasiswa')->with('status', 'Data mahasiswa berhasil ditambahkan.');
     }

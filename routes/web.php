@@ -283,11 +283,22 @@ Route::get(
     [PostinganController::class, 'download']
 )->middleware(middleware: ['auth', 'verified'])->name('postingan.download');
 
-// Mahasiswa =================================================
+// Asisten =================================================
 Route::get(
     '/asisten',
     [AsistenController::class, 'index']
 )->middleware(['auth', 'verified'])->name('asisten');
+
+Route::delete(
+    '/asisten/{id}',
+    [AsistenController::class, 'destroy']
+)->middleware(['auth', 'verified'])->name('asisten.destroy');
+
+Route::get(
+    '/asisten/edit/{asisten}',
+    [AsistenController::class, 'edit']
+)->middleware(['auth', 'verified'])->name('asisten.edit');
+
 
 Route::get(
     '/nilai/create',

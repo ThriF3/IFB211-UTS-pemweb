@@ -74,9 +74,16 @@
                             <x-input-error :messages="$errors->get('nama')" class="mt-2" />
                         </div>
 
+                        <!-- Email Address -->
+                        <div class="col-span-4">
+                            <x-input-label for="email" :value="__('Email')" />
+                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        </div>
+
                         <div class="col-span-4">
                             <x-input-label for="alamat" :value="__('Alamat')" />
-                            <x-textarea-input id="alamat" class="mt-1 w-full" name="alamat"/>
+                            <x-textarea-input id="alamat" class="mt-1 w-full" name="alamat" />
                             <x-input-error :messages="$errors->get('alamat')" class="mt-2" />
                         </div>
 

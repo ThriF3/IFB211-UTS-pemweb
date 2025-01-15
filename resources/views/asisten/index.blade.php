@@ -34,6 +34,7 @@
                     <thead class="bg-slate-100">
                         <tr class="text-slate-600">
                             <th class="py-4 bg-sky-400 text-white">NRP</th>
+                            <th class="py-4 bg-sky-400 text-white">Kode Praktikum</th>
                             <th class="py-4">Nama</th>
                             <th class="py-4">Gender</th>
                             <th class="py-4">Jurusan</th>
@@ -49,6 +50,7 @@
                         @foreach($asisten as $data)
                         <tr class="border-b-2 border-slate-100 text-slate-800">
                             <td class="py-4 bg-sky-100">{{ $data['NRP'] }}</td>
+                            <td class="py-4 bg-sky-100">{{ $data['id_praktikum'] }}</td>
                             <td class="py-4">{{ $data['nama'] }}</td>
                             <td class="py-4">
                                 @if ($data['gender'] == 'P')
@@ -70,7 +72,7 @@
                             <td>
                                 <div class="flex flex-row justify-center gap-4">
 
-                                    <a href="{{ route('mahasiswa.edit', $data['NRP']) }}">
+                                    <a href="{{ route('asisten.edit', $data['NRP']) }}">
                                         <x-secondary-button>
                                             {{ __('Edit') }}
                                         </x-secondary-button>
@@ -80,7 +82,7 @@
                                         x-data=""
                                         x-on:click.prevent="$dispatch('open-modal', 'confirm-data-deletion-{{ $data['NRP'] }}')">{{ __('Delete Data') }}</x-danger-button>
                                     <x-modal name="confirm-data-deletion-{{ $data['NRP'] }}" :show="$errors->userDeletion->isNotEmpty()" focusable>
-                                        <form action="{{ route('mahasiswa.destroy', $data['NRP']) }}" method="POST" class="p-6">
+                                        <form action="{{ route('asisten.destroy', $data['NRP']) }}" method="POST" class="p-6">
                                             @csrf
                                             @method('DELETE')
 
@@ -98,7 +100,7 @@
                                                 </x-secondary-button>
 
                                                 <x-danger-button class="ms-3">
-                                                    {{ __('Delete Mahasiswa') }}
+                                                    {{ __('Delete Asisten') }}
                                                 </x-danger-button>
                                             </div>
                                         </form>
