@@ -301,9 +301,14 @@ Route::get(
 
 
 Route::get(
-    '/nilai/create',
+    '/asisten/create',
     [AsistenController::class, 'create']
 )->middleware(['auth', 'verified'])->name('asisten.create');
+
+Route::post(
+    '/asisten/store',
+    [AsistenController::class, 'store']
+)->middleware(middleware: ['auth', 'verified'])->name('asisten.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

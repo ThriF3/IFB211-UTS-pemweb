@@ -53,7 +53,7 @@ class AsistenController extends Controller
             'name' => $request->nama,
             'role' => 'asisten',
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($request->NRP),
         ]);
 
         Asisten::create([
